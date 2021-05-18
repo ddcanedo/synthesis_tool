@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- send parameters to parameter server -->
+	<rosparam command="load" ns="dataset_create/dataset_create" file="$(find ipa_dirt_detection_dataset_tools)/launch/obsolete/dataset_create.yaml"/>
+
+	<!--  -->
+	<node pkg="ipa_dirt_detection_dataset_tools" ns="dataset_create/dataset_create" type="dataset_create" name="dataset_create" output="screen">
+	</node>
+
+</launch>

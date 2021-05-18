@@ -1,0 +1,71 @@
+# base path to all further folders
+base_path: "/home/daniel/Desktop/irocs/test_tool/"
+
+# clean ground images path
+ground_image_path: "floors"
+
+# path to the segmented dirt samples
+segmented_dirt_path: "dirt_segmented"
+
+# path to the segmented dirt masks
+segmented_dirt_mask_path: "dirt_segmented"
+
+# path to the segmented liquid samples
+segmented_liquids_path: "liquids_segmented"
+
+# path to the segmented liquid masks
+segmented_liquids_mask_path: "liquids_segmented"
+
+# path to the segmented marks samples
+segmented_marks_path: "marks_segmented"
+
+# path to the segmented marks masks
+segmented_marks_mask_path: "marks_segmented"
+
+# path to brightness and shadow masks, source folder for brightness and shadow masks
+brightness_shadow_mask_path: "brightness_shadow_masks"
+
+# path to illumination masks, source folder for illumination masks
+illumination_mask_path: "illumination_masks"
+
+# path to save the blended images
+blended_ground_image_path: "blended_floor_images"
+
+# path to save the blended image masks
+blended_ground_image_mask_path: "blended_floor_masks"
+
+# name to the output file which stores the parameters of the bounding boxes of the blended images
+blended_ground_image_bbox_filename: "bbox_labels.txt"
+
+# maximum number of dirt spots per frame
+# int
+max_num_dirts: 6
+
+# minimum number of dirt spots per frame
+# int
+min_num_dirts: 3
+
+# maximum number of liquids per frame
+# int
+max_num_liquids: 2
+
+# minimum number of liquids per frame
+# int
+min_num_liquids: 1
+
+
+# maximum number of marks per frame
+# int
+max_num_marks: 2
+
+# minimum number of marks per frame
+# int
+min_num_marks: 0
+
+
+# option, whether to flip the clean ground images horizontally and vertically or not (generates 4 images out of one ground image), false=off, true=on
+flip_clean_ground: true
+
+# number of reuses for the same ground pattern (i.e. how many times each image will be used for blending artificial images)
+# int
+ground_image_reuse_times: 25

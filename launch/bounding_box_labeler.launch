@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+	<node pkg="ipa_dirt_detection_dataset_tools" type="bounding_box_labeler" name="bounding_box_labeler" args="$(env HOME)/Desktop/irocs/test_tool/test_data/" output="screen">
+	</node>
+
+</launch>

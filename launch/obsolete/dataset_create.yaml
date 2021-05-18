@@ -1,0 +1,65 @@
+
+# The background color of the objects to be segmented
+# ATTENTION: this is only relevant to the Watershed segmentation, which is not used anymore
+# The new segmentation takes the background color from the upper left pixel and removes all pixels with similar color -> background color should be very different from all object colors
+# black_white_background: false    # false for black
+
+# choice for segmentation or blending
+segment_dirt_or_blend: true   # false for segmentation
+
+# Number of blended images to be generated
+# not used anymore
+#blended_img_num: 0
+
+# clean ground images path 
+ground_image_path: /home/rmb-jx/dataset_new/ground_image
+
+# path of dirt or object images to be segmented from background - this is the source folder for cropping objects or dirt from images
+images_to_be_segmented_path: /home/rmb-jx/dataset(objects)/Others
+
+# Path to save the segmented dirt after cropping, also used as source for dirt samples during image blending
+segmented_dirt_cropped_path:  /home/rmb-jx/dataset_new/Dirt  #/home/robot/dataset(objects)/segmented_dirts #
+
+# Path to save the cropped dirt masks, also used as source for dirt masks when blending
+segmented_dirt_cropped_mask_path: /home/rmb-jx/dataset_new/Dirtmask #/home/robot/dataset(objects)/segmented_dirts_mask #
+
+# Segmented objects path, for blending normal objects
+segmented_objects_path: /home/rmb-jx/dataset_new/Object    #/home/robot/dataset/segmented_stationary #
+
+# Segmented object mask path
+segmented_objects_mask_path: /home/rmb-jx/dataset_new/Objectmask         #/home/robot/dataset/segmented_stationary_mask #
+
+# Path to save the blended images
+blended_ground_image_path: /home/rmb-jx/dataset/blended_ground_image
+
+# Path to save the blended image masks
+blended_ground_image_mask_path: /home/rmb-jx/dataset/blended_ground_mask
+
+# Border residual for cropping bounding box - i.e. crop_residual is the number of pixels added to the mask border to yield the bounding box size
+# int, in [px]
+crop_residual: 2
+
+# maximum number of dirts per frame
+max_num_dirts: 8
+
+# minimum number of dirts per frame
+min_num_dirts: 5
+
+# maximum number of objects per frame
+max_num_objects: 6
+
+# minimum number of objects per frame
+min_num_objects: 2
+
+# Path to the output file which stores the parameters of the bounding boxes
+bbox_parameters_file: /home/rmb-jx/dataset_new/bboxArgus.txt
+
+# Number of reuses for the same ground pattern (how many times each image will be used for blending artificial images)
+# not used for now but should be implemented again
+# ground_pattern_reuse_times: 2
+
+# Option, whether to flip the clean ground images horizontally and vertically or not (generates 4 images out of one ground image)
+flip_clean_ground: 1
+
+# brightness shadow mask path, source folder for illumination and shadow masks
+brightness_shadow_mask_path: /home/rmb-jx/dataset/brightness_shadow_mask

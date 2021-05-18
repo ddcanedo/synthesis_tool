@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+
+	<node pkg="ipa_dirt_detection_dataset_tools" type="image_blender" name="image_blender" output="screen">
+		<rosparam command="load" file="$(find ipa_dirt_detection_dataset_tools)/launch/image_blender_params.yaml"/>
+	</node>
+
+</launch>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+	<name>ipa_dirt_detection_dataset_tools</name>
+	<description>Package for creating a dirt detection dataset.</description>
+
+	<version>0.0.1</version>
+	<license>Fraunhofer IPA</license>
+
+	<maintainer email="richard.bormann@ipa.fraunhofer.de">Richard Bormann</maintainer>
+	<author email="jiawen.xu@ipa.fraunhofer.de">Jiawen Xu</author>
+	<author email="richard.bormann@ipa.fraunhofer.de">Richard Bormann</author>
+
+	<!-- <url type="website">http://wiki.ros.org/ipa_dirt_detection_dataset_tools</url> -->
+
+	<buildtool_depend>catkin</buildtool_depend>
+
+	<depend>boost</depend>
+	<depend>cv_bridge</depend>
+	<depend>libopencv-dev</depend>
+	<depend>roscpp</depend>
+	<depend>rospy</depend>
+</package>

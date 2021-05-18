@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!--  -->
+	<node pkg="ipa_dirt_detection_dataset_tools" ns="record_dataset/record_dataset" type="record_dataset_rgb" name="record_dataset_rgb" output="screen">
+		<!-- send parameters to parameter server -->
+		<rosparam command="load" file="$(find ipa_dirt_detection_dataset_tools)/launch/record_dataset_rgb.yaml"/>
+
+		<!--remap from="image_color" to="/camera/rgb/image"/-->
+		<remap from="image_color" to="/camera/rgb/image_raw"/>
+	</node>
+
+</launch>

@@ -1,0 +1,3 @@
+# base path for floor images
+# string
+base_path: "/home/robot/floors/"

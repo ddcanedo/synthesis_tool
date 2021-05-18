@@ -1,0 +1,56 @@
+# base path to all further folders
+base_path: "/home/daniel/Desktop/irocs/test_tool/"
+
+# path of dirt or object images to be segmented from background - this is the source folder for cropping objects or dirt from images
+source_image_path: "source"
+
+# [optional] rename the 'img' part in the file names to this string, the remainder (i.e. the number) stays the same, turned off for empty string ""
+# string
+rename_img_to: "dirt"
+
+# path to save the segmented dirt or object after cropping, also used as source for dirt or object samples during image blending
+segmented_dirt_cropped_path:  "objects_segmented"
+
+# path to save the cropped dirt or object masks, also used as source for dirt or object masks when blending
+segmented_dirt_cropped_mask_path: "objects_segmented"
+
+
+
+# Canny edge threshold 1 for finding the foreground rectangle
+# double
+foreground_rectangle_canny1: 400
+
+# Canny edge threshold 2 for finding the foreground rectangle
+# double
+foreground_rectangle_canny2: 1250
+
+# the contour of the foreground rectangle, on which the object or dirt is placed, should fill at least this percentage of the image, in [%] of full image area
+# double
+foreground_rectangle_min_area: 0.15
+
+# the contour of the foreground rectangle, on which the object or dirt is placed, fills approximately this percentage of the image, in [%] of full image area
+# if multiple foreground rectangle areas are found, the one with area closest to this value is preferred
+# double
+double foreground_rectangle_target_area: 0.25
+
+# threshold for the similarity of the foreground rectangle to a rectangular shape, in [%] of the area of a perfect rectangle
+# double
+foreground_rectangle_shape_threshold: 0.8
+
+# uniform additional cropping of the identified foreground rectangle from all four sides, in [px]
+# int
+foreground_rectangle_additional_cropping: 20
+
+# segmentation thresholds for luminance difference in the L-channel, in [0,255]
+# regions with a threshold between segmentation_threshold_L_lower and segmentation_threshold_L_upper are masked with relative transparency
+# double
+segmentation_threshold_L_lower: 30          # min: 30 (with this threshold no background is segmented, except for object shadows), max: 100
+segmentation_threshold_L_upper: 100          # min: 30 (with this threshold no background is segmented, except for object shadows), max: 100
+
+# segmentation threshold for a and b difference in the a/b-channels, in [0,255]
+# double
+segmentation_threshold_ab: 20         # min: 20 (with this threshold no background is segmented, except for object shadows), max: 20 (always a good choice)
+
+# border residual for cropping bounding box - i.e. crop_residual is the number of pixels added to the mask border to yield the bounding box size
+# int, in [px]
+crop_residual: 5
