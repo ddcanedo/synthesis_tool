@@ -17,13 +17,7 @@ for gt in (os.listdir(gt_path)):
 
 	contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
-	bounding_boxes = []
-
-	for contour in contours:
-		bounding_boxes.append(cv2.boundingRect(contour))
-
-	for bb in bounding_boxes:
-		cv2.rectangle(og, (bb[0], bb[1]), (bb[0]+bb[2], bb[1]+bb[3]), (0,0,255), 2)
+	cv2.drawContours(og, contours, -1, (0,255,0), 3)
 
 	cv2.namedWindow('img', cv2.WINDOW_NORMAL)
 	cv2.resizeWindow('img', 1440, 1080) 

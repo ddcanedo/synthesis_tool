@@ -39,19 +39,19 @@ blended_ground_image_bbox_filename: "bbox_labels.txt"
 
 # maximum number of dirt spots per frame
 # int
-max_num_dirts: 6
+max_num_dirts: 8
 
 # minimum number of dirt spots per frame
 # int
-min_num_dirts: 3
+min_num_dirts: 5
 
 # maximum number of liquids per frame
 # int
-max_num_liquids: 2
+max_num_liquids: 3
 
 # minimum number of liquids per frame
 # int
-min_num_liquids: 1
+min_num_liquids: 2
 
 
 # maximum number of marks per frame
@@ -60,7 +60,7 @@ max_num_marks: 2
 
 # minimum number of marks per frame
 # int
-min_num_marks: 0
+min_num_marks: 1
 
 
 # option, whether to flip the clean ground images horizontally and vertically or not (generates 4 images out of one ground image), false=off, true=on
@@ -68,4 +68,4 @@ flip_clean_ground: true
 
 # number of reuses for the same ground pattern (i.e. how many times each image will be used for blending artificial images)
 # int
-ground_image_reuse_times: 25
+ground_image_reuse_times: 0

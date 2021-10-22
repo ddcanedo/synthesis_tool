@@ -124,7 +124,7 @@ void ipa_dirt_detection_dataset_tools::ImageBlender::run()
 				const int dirt_num = min_num_dirt_ + rand() % (max_num_dirt_ - min_num_dirt_);		// generate number of dirts in range max_num_dirt and min_num_dirt
 				const int liquids_num = min_num_liquids_ + rand() % (max_num_liquids_ - min_num_liquids_);		// generate number of liquids in range max_num_liquids and min_num_liquids
 				const int marks_num = min_num_marks_ + rand() % (max_num_marks_ - min_num_marks_);		// generate number of marks in range max_num_marks and min_num_marks
-
+				
 				// blend images
 				std::vector<cv::Rect> patch_roi_list;		// keeps track of utilized ROIs for placing patches
 				bbox_labels_file.open(blended_img_folder_ + "/labels/train/" + base_filename + ".txt");
@@ -307,7 +307,10 @@ void ipa_dirt_detection_dataset_tools::ImageBlender::blendImageMarks(cv::Mat& bl
 		//std::cout << segmented_marks_filenames_[mark_image_index] << std::endl;
 		cv::Mat mark_mask = cv::imread(segmented_marks_mask_filenames_[mark_image_index], cv::IMREAD_GRAYSCALE);
 		//std::cout << segmented_marks_mask_filenames_[mark_image_index] << std::endl;
-		blendImagePatch(blended_image, blended_mask, mark_image, mark_mask, floor_mask, clean_ground_image_mean, patch_roi_list, bbox_labels_file, base_filename, "mark", 0);
+		std::string class_name = "long_mark";	// to seperate long marks than little ones based on the file names for rescaling down the line					
+		if(segmented_marks_filenames_[mark_image_index][55] != 'r')
+			class_name = "mark";
+		blendImagePatch(blended_image, blended_mask, mark_image, mark_mask, floor_mask, clean_ground_image_mean, patch_roi_list, bbox_labels_file, base_filename, class_name, 0);
 		//std::cout << "------- one mark finished" << std::endl;
 	}
 }
@@ -341,11 +344,16 @@ void ipa_dirt_detection_dataset_tools::ImageBlender::blendImagePatch(cv::Mat& bl
 
 
 	double dirt_max_side = std::max(patch_image.cols,patch_image.rows);
-	if(class_name == "mark")
+	if(class_name == "long_mark")
 	{
 		alpha = (35 + ( rand() % ( 50 - 35 + 1 ) ))*0.01; // the idea is that dirt is rescaled in relation to image size
 		rotation_angle = (rand() % 4)*90;
 	}	
+	else if (class_name == "mark")
+	{
+		alpha = (3 + ( rand() % ( 5 - 3 + 1 ) ))*0.01; // the idea is that dirt is rescaled in relation to image size
+		rotation_angle = rand() % 360;	
+	}
 	else
 	{
 		alpha = (5 + ( rand() % ( 7 - 5 + 1 ) ))*0.01; // the idea is that dirt is rescaled in relation to image size
@@ -399,8 +407,6 @@ void ipa_dirt_detection_dataset_tools::ImageBlender::blendImagePatch(cv::Mat& bl
 	bool has_significant_overlap = false;
 	for (int k=0; k<1000; ++k)
 	{
-		if(k == 999)
-			std::cout << "Blending failed" << std::endl;
 		anchor_col = anchor_offset + rand() % blended_image.cols;		// top left point of the blending position
 		anchor_row = anchor_offset + rand() % blended_image.rows;
 		if ((anchor_col + patch_cols + anchor_offset) >= blended_image.cols)
@@ -446,6 +452,9 @@ void ipa_dirt_detection_dataset_tools::ImageBlender::blendImagePatch(cv::Mat& bl
 		}
 	}
 
+	if(is_within_mask==false)
+		std::cout << "Failed to blend" << std::endl;
+
 	// write the arguments of the bounding box in file
 	//bbox_labels_file << base_filename << " " << anchor_col - anchor_offset << " " << anchor_row - anchor_offset << " "
 	//		<< anchor_col + patch_cols + anchor_offset << " " << anchor_row + patch_rows + anchor_offset << " " << class_name << " \n";
@@ -457,7 +466,14 @@ void ipa_dirt_detection_dataset_tools::ImageBlender::blendImagePatch(cv::Mat& bl
 		double center_y = (double)((anchor_row - anchor_offset) + aux2)/blended_image.rows;
 		double yolo_width = (double)patch_cols/blended_image.cols;
 		double yolo_height = (double)patch_rows/blended_image.rows;
-		bbox_labels_file << "0" << " " << center_x << " " << center_y << " " << yolo_width << " " << yolo_height << "\n";
+		std::string label;
+		if(class_name == "dirt")
+			label = "0";
+		if(class_name == "liquid")
+			label = "1";
+		if(class_name == "long_mark" || class_name == "mark")
+			label = "2";
+		bbox_labels_file << label << " " << center_x << " " << center_y << " " << yolo_width << " " << yolo_height << "\n";
 
 		// modify borders of the mask for smooth transition to background
 		cv::Mat patch_mask_thresholded, patch_mask_eroded;
@@ -470,7 +486,7 @@ void ipa_dirt_detection_dataset_tools::ImageBlender::blendImagePatch(cv::Mat& bl
 					patch_mask.at<uchar>(v,u) = 0.5*patch_mask.at<uchar>(v,u);
 
 		// blend patch into the image
-		double liquid_opacity = (0 + ( rand() % ( 6 - 0 + 1 ) ))*0.1;
+		double liquid_opacity = (2 + ( rand() % ( 4 - 2 + 1 ) ))*0.1;
 		double mark_opacity = (0 + ( rand() % ( 5 - 0 + 1 ) ))*0.1;
 		for (int i = anchor_row; i < anchor_row + patch_rows; ++i)
 		{

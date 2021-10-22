@@ -24,6 +24,12 @@ for label in labels:
 	f = open(l, "r")
 	img = cv2.imread(img)
 	for line in f:
+		class_label = line.split(' ')[0]
+		color = (0,0,255)
+		if class_label == '1':
+			color = (0,255,0)
+		if class_label == '2':
+			color = (255,0,0)
 		x = float(line.split(' ')[1])
 		y = float(line.split(' ')[2])
 		w = float(line.split(' ')[3])
@@ -33,7 +39,7 @@ for label in labels:
 		br = (round((x+w/2)*img.shape[1]), round((y+h/2)*img.shape[0]))
 
 
-		cv2.rectangle(img, tl, br, (0,0,255), 2)
+		cv2.rectangle(img, tl, br, color, 1)
 
 		
 
